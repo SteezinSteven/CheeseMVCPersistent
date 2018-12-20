@@ -17,32 +17,32 @@ namespace CheeseMVC.ViewModels
         [Required(ErrorMessage = "You must give your cheese a description")]
         public string Description { get; set; }
 
-        public CheeseType Type { get; set; }
+        [Required]
+        [Display(Name = "Category")]
+        public int CategoryID { get; set; }
+        public List<SelectListItem> Categories { get; set; }
 
-        public List<SelectListItem> CheeseTypes { get; set; }
 
-        public AddCheeseViewModel() {
 
-            CheeseTypes = new List<SelectListItem>();
+        //public List<SelectListItem> CheeseTypes { get; set; }
 
-            // <option value="0">Hard</option>
-            CheeseTypes.Add(new SelectListItem {
-                Value = ((int) CheeseType.Hard).ToString(),
-                Text = CheeseType.Hard.ToString()
-            });
-
-            CheeseTypes.Add(new SelectListItem
+        public AddCheeseViewModel() { }
+        public AddCheeseViewModel(IEnumerable<CheeseCategory> categories) { 
+        
+            Categories = new List<SelectListItem>();
+            foreach (var cat in categories)
+            Categories.Add(new SelectListItem
             {
-                Value = ((int)CheeseType.Soft).ToString(),
-                Text = CheeseType.Soft.ToString()
+                Value = ((int)cat.ID).ToString(),
+                Text = cat.Name.ToString()
             });
-
-            CheeseTypes.Add(new SelectListItem
-            {
-                Value = ((int)CheeseType.Fake).ToString(),
-                Text = CheeseType.Fake.ToString()
-            });
-
         }
+
+       
+            
+
+
+
+        
     }
 }
